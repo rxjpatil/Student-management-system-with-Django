@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <title>Student</title>
+</head>
+<body>
+    <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Student Roll Number</th>
+            <th scope="col">Student Name</th>
+            <th scope="col">Age</th>
+            <th scope="col">Grade</th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for x in data %}
+          <tr> 
+            <td>{{x.roll_number}}</td>
+            <td>{{x.name}}</td>
+            <td>{{x.age}}</td>
+            <td>{{x.grade}}</td>
+            <td><a href="/editstudent/{{x.roll_number}}" class="btn btn-light border border-dark">Edit</a></td>
+            <td><a href="/delstudent/{{x.roll_number}}" class="btn btn-danger">Delete</a></td> 
+          </tr>
+        {% endfor %}
+        <tr>
+          <form method="post">
+            {% csrf_token %}  
+              <td>{{ form.roll_number }}</td>
+              <td>{{ form.name }}</td>
+              <td>{{ form.age }}</td>
+              <td>{{ form.grade }}</td>
+              <td colspan="2">
+                <button class="btn btn-primary" type="submit">Add Student</button>
+              </td>
+          </form>
+        </tr>
+        </tbody>
+    </table>
+</body>
+</html>
